@@ -73,42 +73,47 @@ onMounted(() => {
     </div>
     <div v-if="loading">Loading...</div>
     <div v-else>
-      <div
-        v-for="email in emails"
-        :key="email.id"
-        class="email"
-        @click="toggleEmail(email.id)"
-      >
+      <div v-if="emails.length === 0" class="no-emails">
+        No emails available. Try refreshing or wait for new emails.
+      </div>
+      <div v-else>
         <div
-          :class="{
-            active: openedEmailId === email.id,
-            nonactive: openedEmailId !== email.id,
-          }"
+          v-for="email in emails"
+          :key="email.id"
+          class="email"
+          @click="toggleEmail(email.id)"
         >
-          <div class="email-header">
-            <img
-              alt="Profile icon"
-              class="profile-icon"
-              src="https://storage.googleapis.com/a1aa/image/-ngthweFWrsGlh8aSoniWNZi8rdDtO_ouKWxXBSxGC0.jpg"
-            />
-            <div class="email-info">
-              Requested by <b>{{ email.sender }}</b> at
-              {{
-                new Date(email.date_received).toLocaleString("id-ID", {
-                  day: "2-digit",
-                  month: "short",
-                  year: "numeric",
-                  hour: "2-digit",
-                  minute: "2-digit",
-                })
-              }}
+          <div
+            :class="{
+              active: openedEmailId === email.id,
+              nonactive: openedEmailId !== email.id,
+            }"
+          >
+            <div class="email-header">
+              <img
+                alt="Profile icon"
+                class="profile-icon"
+                src="https://storage.googleapis.com/a1aa/image/-ngthweFWrsGlh8aSoniWNZi8rdDtO_ouKWxXBSxGC0.jpg"
+              />
+              <div class="email-info">
+                Requested by <b>{{ email.sender }}</b> at
+                {{
+                  new Date(email.date_received).toLocaleString("id-ID", {
+                    day: "2-digit",
+                    month: "short",
+                    year: "numeric",
+                    hour: "2-digit",
+                    minute: "2-digit",
+                  })
+                }}
+              </div>
             </div>
-          </div>
-          <div v-if="openedEmailId === email.id">
-            <a :href="email.body" target="_blank" class="get-code-button"
-              >Get Code</a
-            >
-            <div class="link-expiry">* Link expires after 15 minutes.</div>
+            <div v-if="openedEmailId === email.id">
+              <a :href="email.body" target="_blank" class="get-code-button"
+                >Get Code</a
+              >
+              <div class="link-expiry">* Link expires after 15 minutes.</div>
+            </div>
           </div>
         </div>
       </div>
@@ -213,5 +218,14 @@ onMounted(() => {
   color: #7a7a7a;
   font-size: 0.875em;
   margin-top: 0.5em;
+}
+
+.no-emails {
+  text-align: center;
+  padding: 1em;
+  background-color: #f0f0f0;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  color: #4a4a4a;
 }
 </style>
