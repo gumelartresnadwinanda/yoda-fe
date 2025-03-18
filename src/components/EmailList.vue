@@ -89,6 +89,9 @@ onMounted(() => {
               nonactive: openedEmailId !== email.id,
             }"
           >
+            <div v-if="openedEmailId === email.id" class="email-subject">
+              {{ email.subject }}
+            </div>
             <div class="email-header">
               <img
                 alt="Profile icon"
@@ -109,7 +112,11 @@ onMounted(() => {
               </div>
             </div>
             <div v-if="openedEmailId === email.id">
-              <a :href="email.body" target="_blank" class="get-code-button"
+              <a
+                :href="email.body"
+                target="_blank"
+                class="get-code-button"
+                @click.stop
                 >Get Code</a
               >
               <div class="link-expiry">* Link expires after 15 minutes.</div>
@@ -138,6 +145,11 @@ onMounted(() => {
 
 .email:hover {
   background-color: #e0e0e0;
+}
+
+.email-subject {
+  color: #4a4a4a;
+  font-weight: bold;
 }
 
 .email-header {
