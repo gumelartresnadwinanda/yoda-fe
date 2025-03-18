@@ -1,2 +1,21 @@
 # yoda-fe
- Your Organized Database for Archiving - Email Forwarder
+
+Your Organized Database for Archiving - Email Forwarder
+
+## Project Setup
+
+```sh
+npm install
+```
+
+### Compile and Hot-Reload for Development
+
+```sh
+npm run dev
+```
+
+### Compile and Minify for Production
+
+```sh
+npm run build
+```
